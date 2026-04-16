@@ -17,9 +17,9 @@ type NavbarProps = {
 
 const defaultItems: NavbarItem[] = [
     { label: "Home", href: "/" },
-    { label: "Customers", href: "/admin/customers"},
-    { label: "Services", href: "/admin/services"},
-    { label: "Bills", href: "/admin/bills"},
+    { label: "Customers", href: "/admin/customer"},
+    { label: "Services", href: "/admin/service"},
+    { label: "Bills", href: "/admin/bill"},
     { label: "Admin Profile", href: "/admin/profile" },
 ]
 
