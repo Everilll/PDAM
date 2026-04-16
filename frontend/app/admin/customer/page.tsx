@@ -2,7 +2,6 @@ import { getCookies } from "@/helper/cookies"
 import Link from "next/link"
 import Drop from "./drop"
 import Search from "@/components/ui/search"
-import Navbar from "@/components/ui/navbar"
 
 export interface CustomerResponse {
     success: boolean
@@ -108,9 +107,7 @@ export default async function CustomerPage(props: PageProps) {
     }
 
     return (
-        <div>
-            <Navbar />
-            <div className="w-full p-5 max-w-7xl mx-auto">
+        <div className="w-full p-5 max-w-7xl mx-auto">
                 <div className="mb-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
@@ -225,7 +222,6 @@ export default async function CustomerPage(props: PageProps) {
                         <p className="text-gray-500 dark:text-gray-400">Start by adding your first customer</p>
                     </div>
                 )}
-            </div>
         </div>
     )
 }
