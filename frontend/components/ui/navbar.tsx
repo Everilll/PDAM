@@ -7,6 +7,7 @@ import { useState } from "react"
 type NavbarItem = {
     label: string
     href: string
+    match?: "exact" | "prefix"
 }
 
 type NavbarProps = {
@@ -16,11 +17,31 @@ type NavbarProps = {
 
 const defaultItems: NavbarItem[] = [
     { label: "Home", href: "/" },
+    { label: "Customers", href: "/admin/customers"},
+    { label: "Services", href: "/admin/services"},
+    { label: "Bills", href: "/admin/bills"},
     { label: "Admin Profile", href: "/admin/profile" },
 ]
 
+function normalizePath(path: string): string {
+    if (path === "/") return "/"
+    return path.replace(/\/+$/, "")
+}
+
+function isItemActive(pathname: string, item: NavbarItem): boolean {
+    const currentPath = normalizePath(pathname)
+    const itemPath = normalizePath(item.href)
+
+    const matchMode = item.match ?? (itemPath === "/" ? "exact" : "prefix")
+    if (matchMode === "exact") {
+        return currentPath === itemPath
+    }
+
+    return currentPath === itemPath || currentPath.startsWith(`${itemPath}/`)
+}
+
 export default function Navbar({
-    brand = "PDAM Admin",
+    brand = "PDAM",
     items = defaultItems,
 }: NavbarProps) {
     const pathname = usePathname()
@@ -45,7 +66,7 @@ export default function Navbar({
 
                 <div className="hidden items-center gap-2 md:flex">
                     {items.map((item) => {
-                        const isActive = pathname === item.href
+                        const isActive = isItemActive(pathname, item)
                         return (
                             <Link
                                 key={item.href}
@@ -68,7 +89,7 @@ export default function Navbar({
                 <div className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
                     <div className="flex flex-col gap-2">
                         {items.map((item) => {
-                            const isActive = pathname === item.href
+                            const isActive = isItemActive(pathname, item)
                             return (
                                 <Link
                                     key={item.href}
