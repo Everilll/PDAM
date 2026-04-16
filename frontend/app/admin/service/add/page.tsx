@@ -211,7 +211,7 @@ export default function AddServicePage() {
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] rounded-full bg-white/40 pointer-events-none transform scale-100 opacity-0 transition-all duration-700 ease-out group-active:scale-0 group-active:opacity-100 group-active:transition-none"></div>
                         </button>
                         <button
-                            onClick={() => router.replace('/admin/services')}
+                            onClick={() => router.replace('/admin/service')}
                             type="button"
                             disabled={isLoading}
                             className="ml-5 relative px-6 py-3 bg-sky-500 text-white font-semibold rounded-lg shadow-lg overflow-hidden group focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-offset-2 transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">

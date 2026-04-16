@@ -123,7 +123,7 @@ export default async function ServicePage(props: PageProps) {
                         </p>
                     </div>
                     <Link
-                        href="/admin/services/add"
+                        href="/admin/service/add"
                         className="inline-flex items-center justify-center px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                     >
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
