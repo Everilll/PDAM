@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { CircleUserRound, FileText, Home, Users } from "lucide-react"
+import { User, FileText, Users, Receipt } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -23,10 +23,10 @@ type SidebarItem = {
 }
 
 const sidebarItems: SidebarItem[] = [
-  { label: "Dashboard", href: "/admin/profile", icon: Home },
+  { label: "Profile", href: "/admin/profile", icon: User },
   { label: "Customers", href: "/admin/customer", icon: Users },
   { label: "Services", href: "/admin/service", icon: FileText },
-  { label: "Bills", href: "/admin/bill", icon: FileText },
+  { label: "Bills", href: "/admin/bill", icon: Receipt },
 ]
 
 function isActivePath(pathname: string, href: string): boolean {
@@ -68,7 +68,7 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="border-t border-slate-200 p-3 text-xs text-slate-500">
         <div className="flex items-center gap-2">
-          <CircleUserRound className="h-4 w-4" />
+          <User className="h-4 w-4" />
           <span>Admin Panel</span>
         </div>
       </SidebarFooter>
