@@ -23,18 +23,24 @@ type SidebarItem = {
   icon: React.ComponentType<{ className?: string }>
 }
 
-const sidebarItems: SidebarItem[] = [
+const adminSidebarItems: SidebarItem[] = [
   { label: "Profile", href: "/admin/profile", icon: User },
   { label: "Customers", href: "/admin/customer", icon: Users },
   { label: "Services", href: "/admin/service", icon: FileText },
   { label: "Bills", href: "/admin/bill", icon: Receipt },
 ]
 
+const customerSidebarItems: SidebarItem[] = [
+  { label: "Profile", href: "/customer/profile", icon: User },
+  { label: "Bills", href: "/customer/bill", icon: Receipt },
+  { label: "Payment", href: "/customer/payment", icon: FileText },
+]
+
 function isActivePath(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`)
 }
 
-export function AppSidebar() {
+export function AdminAppSidebar() {
   const pathname = usePathname()
 
   return (
@@ -49,7 +55,50 @@ export function AppSidebar() {
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {sidebarItems.map((item) => {
+              {adminSidebarItems.map((item) => {
+                const isActive = isActivePath(pathname, item.href)
+
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.href}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+              <SidebarMenuItem>
+                <Logout />
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter className="border-t border-slate-200 p-3 text-xs text-slate-500">
+
+      </SidebarFooter>
+    </Sidebar>
+  )
+}
+
+export function CustomerAppSidebar() {
+  const pathname = usePathname()
+
+  return (
+    <Sidebar collapsible="offcanvas" className="border-r border-slate-200 bg-white">
+      <SidebarHeader className="border-b border-slate-200 p-4">
+        <Link href="/customer/profile" className="text-lg font-bold tracking-tight text-slate-900">
+          PDAM
+        </Link>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {customerSidebarItems.map((item) => {
                 const isActive = isActivePath(pathname, item.href)
 
                 return (
