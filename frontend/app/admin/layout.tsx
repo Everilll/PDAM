@@ -1,7 +1,38 @@
 import { AdminAppSidebar } from "@/components/app-sidebar"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { getCookies } from "@/helper/cookies"
+import { redirect } from "next/navigation"
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+async function isAuthorized(path: string, token: string): Promise<boolean> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ""
+  const response = await fetch(`${baseUrl}${path}`, {
+    method: "GET",
+    cache: "no-store",
+    headers: {
+      "APP-KEY": process.env.NEXT_PUBLIC_APP_KEY || "",
+      "Authorization": `Bearer ${token}`,
+    },
+  })
+
+  return response.ok
+}
+
+export default async function Layout({ children }: { children: React.ReactNode }) {
+  const token = await getCookies("token")
+
+  if (!token) {
+    redirect("/sign-in")
+  }
+
+  const isAdmin = await isAuthorized("/admins/me", token)
+  if (!isAdmin) {
+    const isCustomer = await isAuthorized("/customers/me", token)
+    if (isCustomer) {
+      redirect("/customer/profile")
+    }
+    redirect("/sign-in")
+  }
+
   return (
     <SidebarProvider>
       <AdminAppSidebar />
