@@ -15,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Logout } from "./logout"
 
 type SidebarItem = {
   label: string
@@ -62,15 +63,15 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 )
               })}
+              <SidebarMenuItem>
+                <Logout />
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="border-t border-slate-200 p-3 text-xs text-slate-500">
-        <div className="flex items-center gap-2">
-          <User className="h-4 w-4" />
-          <span>Admin Panel</span>
-        </div>
+
       </SidebarFooter>
     </Sidebar>
   )
