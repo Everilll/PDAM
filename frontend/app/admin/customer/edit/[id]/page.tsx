@@ -1,5 +1,5 @@
 import { getCookies } from "@/helper/cookies"
-import FormCustomer from "../form"
+import FormCustomer from "./form"
 
 export interface CustomerResponse {
   success: boolean
@@ -51,8 +51,7 @@ export interface ServiceListResponse {
 
 async function getCustomerById(customer_id: string): Promise<CustomerType | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BASE_URL || ""
-    const url = `${baseUrl}/customers/${customer_id}`
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/customers/${customer_id}`
     const response = await fetch(url, {
       method: "GET",
       cache: "no-store",
@@ -75,8 +74,7 @@ async function getCustomerById(customer_id: string): Promise<CustomerType | null
 
 async function getServices(): Promise<ServiceType[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BASE_URL || ""
-    const url = `${baseUrl}/services`
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/services`
     const response = await fetch(url, {
       method: "GET",
       cache: "no-store",
