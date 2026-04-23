@@ -4,7 +4,7 @@ import { getCookies } from "@/helper/cookies"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast, ToastContainer } from "react-toastify"
-import { CustomerResponse, CustomerType } from "../page"
+import { CustomerResponse, CustomerType } from "./[id]/page"
 import { ServiceType } from "../add/page"
 
 type Props = {

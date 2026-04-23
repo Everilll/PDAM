@@ -163,7 +163,7 @@ export default async function ServicePage(props: PageProps) {
                     <h3 className="text-xl font-semibold text-sky-800 mb-2">No Services Available</h3>
                     <p className="text-sky-600 mb-4">Get started by adding your first service</p>
                     <Link
-                        href="/admin/services/add"
+                        href="/admin/service/add"
                         className="inline-flex items-center px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow transition-all duration-300 hover:shadow-lg"
                     >
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,7 +237,7 @@ export default async function ServicePage(props: PageProps) {
                                                 <Drop selectedData={service.id} />
 
                                                 {/** edit button */}
-                                                <Link href={`/admin/services/edit/${service.id}`}>
+                                                <Link href={`/admin/service/edit/${service.id}`}>
                                                     <button
                                                         className="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer"
                                                         title="Edit service"
