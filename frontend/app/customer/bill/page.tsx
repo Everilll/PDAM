@@ -225,6 +225,7 @@ export default async function BillPage(props: PageProps) {
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Total</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Admin</th>
+                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Admin</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-200">
@@ -250,7 +251,9 @@ export default async function BillPage(props: PageProps) {
                                             </span>
                                         </td>
                                         <td className="px-4 py-4 align-top text-sm text-slate-700">{bill.admin.name}</td>
-
+                                        <td>
+                                            <Pay/>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
