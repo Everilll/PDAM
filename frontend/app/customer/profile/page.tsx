@@ -74,7 +74,7 @@ function formatDate(value?: string): string {
     const date = new Date(value)
     if (Number.isNaN(date.getTime())) return '-'
 
-    return new Intl.DateTimeFormat('id-ID', {
+    return new Intl.DateTimeFormat('en-US', {
         dateStyle: 'medium',
         timeStyle: 'short',
     }).format(date)
@@ -96,15 +96,15 @@ export default async function ProfilePage() {
             <div className="w-full min-h-dvh bg-slate-100">
                 <div className="p-6 flex items-center justify-center">
                     <div className="w-full max-w-lg rounded-2xl border border-red-100 bg-white p-6 shadow-sm text-center">
-                        <h1 className="font-semibold text-2xl text-slate-900">Profile tidak tersedia</h1>
+                        <h1 className="font-semibold text-2xl text-slate-900">Profile Unavailable</h1>
                         <p className="mt-2 text-slate-600">
-                            Data admin belum bisa dimuat. Coba login ulang dan akses halaman ini lagi.
+                            Customer data could not be loaded. Please sign in again and reopen this page.
                         </p>
                         <Link
                             href="/sign-in"
                             className="inline-flex mt-5 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
                         >
-                            Kembali ke Sign In
+                            Back to Sign In
                         </Link>
                     </div>
                 </div>
@@ -124,7 +124,7 @@ export default async function ProfilePage() {
                     <div className="rounded-2xl bg-linear-to-r from-blue-700 via-blue-600 to-cyan-600 p-6 text-white shadow-lg">
                         <p className="text-sm uppercase tracking-widest text-blue-100">Dashboard</p>
                         <h1 className="mt-1 text-3xl font-bold">Customer Profile</h1>
-                        <p className="mt-2 text-blue-100">Ringkasan informasi akun customer yang sedang login.</p>
+                        <p className="mt-2 text-blue-100">Summary of the currently signed-in customer account.</p>
                     </div>
 
                     <div className="mt-6 grid gap-6 lg:grid-cols-3">
@@ -148,7 +148,7 @@ export default async function ProfilePage() {
                         </section>
 
                         <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 lg:col-span-2">
-                            <h3 className="text-lg font-semibold text-slate-900">Detail Akun</h3>
+                            <h3 className="text-lg font-semibold text-slate-900">Account Details</h3>
                             <div className="mt-5 grid gap-4 sm:grid-cols-2">
                                 <div className="rounded-lg border border-slate-200 p-4">
                                     <p className="text-xs uppercase tracking-wide text-slate-500">Name</p>
@@ -171,11 +171,11 @@ export default async function ProfilePage() {
                                     <p className="mt-1 text-slate-900 font-semibold">{safeRole}</p>
                                 </div>
                                 <div className="rounded-lg border border-slate-200 p-4 sm:col-span-2">
-                                    <p className="text-xs uppercase tracking-wide text-slate-500">Dibuat</p>
+                                    <p className="text-xs uppercase tracking-wide text-slate-500">Created At</p>
                                     <p className="mt-1 text-slate-900 font-semibold">{formatDate(customerProfile.createdAt)}</p>
                                 </div>
                                 <div className="rounded-lg border border-slate-200 p-4 sm:col-span-2">
-                                    <p className="text-xs uppercase tracking-wide text-slate-500">Terakhir Diupdate</p>
+                                    <p className="text-xs uppercase tracking-wide text-slate-500">Last Updated</p>
                                     <p className="mt-1 text-slate-900 font-semibold">{formatDate(customerProfile.updatedAt)}</p>
                                 </div>
                             </div>

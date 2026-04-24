@@ -116,7 +116,7 @@ function formatRupiah(amount: number): string {
 }
 
 function formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString("id-ID", {
+    return new Date(dateString).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric"
@@ -125,7 +125,7 @@ function formatDate(dateString: string): string {
 
 function formatPeriod(month: number, year: number): string {
     const date = new Date(year, Math.max(0, month - 1), 1)
-    return date.toLocaleDateString("id-ID", { month: "long", year: "numeric" })
+    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" })
 }
 
 type PageProps = {
@@ -171,21 +171,21 @@ export default async function BillPage(props: PageProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <div className="rounded-xl p-5 bg-linear-to-r from-sky-500 to-blue-600 text-white shadow-lg">
-                    <p className="text-sky-100 text-sm">Total Tagihan</p>
+                    <p className="text-sky-100 text-sm">Total Bills</p>
                     <p className="text-3xl font-bold mt-1">{count}</p>
                 </div>
                 <div className="rounded-xl p-5 bg-emerald-50 border border-emerald-200 shadow-sm">
-                    <p className="text-emerald-700 text-sm">Sudah Dibayar</p>
+                    <p className="text-emerald-700 text-sm">Paid</p>
                     <p className="text-2xl font-bold text-emerald-800 mt-1">{paidBills.length}</p>
                     <p className="text-xs text-emerald-700 mt-1">{formatRupiah(paidAmount)}</p>
                 </div>
                 <div className="rounded-xl p-5 bg-rose-50 border border-rose-200 shadow-sm">
-                    <p className="text-rose-700 text-sm">Belum Dibayar</p>
+                    <p className="text-rose-700 text-sm">Unpaid</p>
                     <p className="text-2xl font-bold text-rose-800 mt-1">{unpaidBills.length}</p>
                     <p className="text-xs text-rose-700 mt-1">{formatRupiah(unpaidAmount)}</p>
                 </div>
                 <div className="rounded-xl p-5 bg-white border border-slate-200 shadow-sm">
-                    <p className="text-slate-600 text-sm">Total Nilai Tagihan</p>
+                    <p className="text-slate-600 text-sm">Total Bill Value</p>
                     <p className="text-xl font-bold text-slate-900 mt-2">{formatRupiah(totalAmount)}</p>
                 </div>
             </div>
@@ -195,11 +195,11 @@ export default async function BillPage(props: PageProps) {
                     type="text"
                     name="search"
                     id="search"
-                    placeholder="Cari berdasarkan nomor invoice atau nama customer..."
+                    placeholder="Search by invoice number or customer name..."
                     defaultValue={search || ""}
                     className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-all"
                 />
-                <p className="text-xs text-slate-500 mt-2">Tekan Enter untuk melakukan pencarian.</p>
+                <p className="text-xs text-slate-500 mt-2">Press Enter to search.</p>
             </form>
 
             {count === 0 ? (
@@ -207,8 +207,8 @@ export default async function BillPage(props: PageProps) {
                     <svg className="w-16 h-16 mx-auto text-sky-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <h3 className="text-xl font-semibold text-sky-800 mb-2">Belum Ada Data Tagihan</h3>
-                    <p className="text-sky-600">Data bill akan muncul setelah proses input meter dan kalkulasi selesai.</p>
+                    <h3 className="text-xl font-semibold text-sky-800 mb-2">No Bill Data Yet</h3>
+                    <p className="text-sky-600">Bill data will appear after meter input and calculation are completed.</p>
                 </div>
             ) : (
                 <div className="mt-6 bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
@@ -218,8 +218,8 @@ export default async function BillPage(props: PageProps) {
                                 <tr className="bg-sky-600 text-white">
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Invoice</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Customer</th>
-                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Periode</th>
-                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Pemakaian</th>
+                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Period</th>
+                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Usage</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Service</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Total</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
@@ -240,7 +240,7 @@ export default async function BillPage(props: PageProps) {
                                         <td className="px-4 py-4 align-top text-sm text-slate-700">{formatPeriod(bill.month, bill.year)}</td>
                                         <td className="px-4 py-4 align-top">
                                             <div className="text-sm font-semibold text-slate-800">{bill.usage_value} m3</div>
-                                            <div className="text-xs text-slate-500 mt-1">Harga satuan: {formatRupiah(bill.price)}</div>
+                                            <div className="text-xs text-slate-500 mt-1">Unit price: {formatRupiah(bill.price)}</div>
                                         </td>
                                         <td className="px-4 py-4 align-top">
                                             <div className="text-sm font-medium text-slate-800">{bill.service.name}</div>
@@ -249,7 +249,7 @@ export default async function BillPage(props: PageProps) {
                                         <td className="px-4 py-4 align-top text-sm font-bold text-slate-900">{formatRupiah(bill.amount)}</td>
                                         <td className="px-4 py-4 align-top">
                                             <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${bill.paid ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
-                                                {bill.paid ? "Lunas" : "Belum Lunas"}
+                                                {bill.paid ? "Paid" : "Unpaid"}
                                             </span>
                                         </td>
                                         <td className="px-4 py-4 align-top text-sm text-slate-700">{bill.admin.name}</td>
@@ -259,7 +259,7 @@ export default async function BillPage(props: PageProps) {
                         </table>
                     </div>
                     <div className="bg-slate-50 px-6 py-4 border-t border-slate-200 text-sm text-slate-600">
-                        Menampilkan <span className="font-semibold">{count}</span> data bill.
+                        Showing <span className="font-semibold">{count}</span> bill records.
                     </div>
                 </div>
             )}

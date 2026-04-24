@@ -98,11 +98,11 @@ export default function FormCustomer(props: Props) {
         return
       }
 
-      toast.success(responseData?.message || "Customer berhasil diperbarui", { containerId: "toastUpdateCustomer" })
+      toast.success(responseData?.message || "Customer updated successfully", { containerId: "toastUpdateCustomer" })
       resetForm()
     } catch (error) {
       console.log("Error updating customer:", error)
-      toast.error("Terjadi kesalahan. Silakan coba lagi.", { containerId: "toastUpdateCustomer" })
+      toast.error("An error occurred. Please try again.", { containerId: "toastUpdateCustomer" })
     } finally {
       setIsLoading(false)
     }
@@ -114,7 +114,7 @@ export default function FormCustomer(props: Props) {
 
       <div className="mb-4">
         <h1 className="text-xl text-sky-700 font-bold">Update customer</h1>
-        <p className="text-slate-600 text-sm">edit customer data</p>
+        <p className="text-slate-600 text-sm">Edit customer data</p>
       </div>
 
       <form onSubmit={handleUpdateCustomer} className="space-y-3">

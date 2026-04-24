@@ -107,7 +107,7 @@ export default function AddServicePage() {
             }
 
             toast.success(
-                responseData.message || "Layanan berhasil ditambahkan!",
+                responseData.message || "Service added successfully!",
                 { containerId: 'toastAddService' }
             )
 
@@ -116,7 +116,7 @@ export default function AddServicePage() {
         } catch (error) {
             console.error("Error during adding service:", error)
             toast.error(
-                "Terjadi kesalahan. Silakan coba lagi.",
+                "An error occurred. Please try again.",
                 { containerId: 'toastAddService' }
             )
         } finally {

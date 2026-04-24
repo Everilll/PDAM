@@ -49,7 +49,7 @@ export default function SignUpPage() {
                 body: request
             });
             if (!response.ok) {
-                alert("Gagal melakukan registrasi admin");
+                alert("Failed to register admin");
                 return;
             }
             const responseData = await response.json();

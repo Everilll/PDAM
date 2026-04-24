@@ -171,7 +171,7 @@ export default function AddCustomerPage() {
             }
 
             toast.success(
-                responseData.message || "Customer berhasil ditambahkan!",
+                responseData.message || "Customer added successfully!",
                 { containerId: 'toastAddCustomer' }
             )
 
@@ -180,7 +180,7 @@ export default function AddCustomerPage() {
         } catch (error) {
             console.error("Error during adding customer:", error)
             toast.error(
-                "Terjadi kesalahan. Silakan coba lagi.",
+                "An error occurred. Please try again.",
                 { containerId: 'toastAddCustomer' }
             )
         } finally {

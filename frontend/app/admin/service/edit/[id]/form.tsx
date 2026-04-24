@@ -58,7 +58,7 @@ export default function FormService(props: Props) {
             }
 
             toast.success(
-                responseData.message || "Layanan berhasil diperbarui!",
+                responseData.message || "Service updated successfully!",
                 { containerId: 'toastUpdateService' }
             )
 
@@ -67,7 +67,7 @@ export default function FormService(props: Props) {
         } catch (error) {
             console.error("Error during updating service:", error)
             toast.error(
-                "Terjadi kesalahan. Silakan coba lagi.",
+                "An error occurred. Please try again.",
                 { containerId: 'toastUpdateService' }
             )
         }
