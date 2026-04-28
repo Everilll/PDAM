@@ -28,7 +28,7 @@ export default function Pay() {
                         </DialogDescription>
                     </DialogHeader>
                     <form>
-
+                        
                     </form>
                 </DialogContent>
             </Dialog>
