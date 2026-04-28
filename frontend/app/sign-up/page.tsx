@@ -1,18 +1,20 @@
 "use client"
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import { useState, useTransition } from "react";
 
-import Link from "next/link";
-import { useState } from "react";
-
-/** use client digunakan untuk menunjukkan halama tersebut 
- * merupakan halaman client side rendering
- * 
- * client side rendering artinya proses rendering
- * dilakukan di sisi client (browser)
- * 
- * waktu yang tepat untuk menggunakan "use client" 
- * adalah ketika halaman tersebut membutuhkan
- * interaktivitas di sisi client */
-export default function SignUpPage() {
+export default function CardDemo() {
     /** define state */
     /** define state adalah variabel yang menyimpan informasi
      * yang dapat berubah selama proses rendering komponen
@@ -28,6 +30,8 @@ export default function SignUpPage() {
     const [password, setPassword] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
+
+    const [isPending, startTransition] = useTransition();
 
     /** function to handle sign up form submission */
     const handleSignUp = async (e: React.FormEvent) => {
@@ -58,43 +62,73 @@ export default function SignUpPage() {
             console.log("Error during sign up:", error);
         }
     }
+
     return (
-        <div className="w-full h-dvh bg-blue-200 p-3 flex items-center justify-center">
-            <div className="bg-white w-full md:w-1/2 lg:w-1/3 p-10 rounded-lg">
-                <h1 className="text-center font-bold text-blue-500 text-2xl">
-                    Register Admin
-                </h1>
-
-                <form className="my-3" onSubmit={handleSignUp}>
-                    <div className="pb-7">
-                        <label htmlFor="username" className="text-sm font-semibold text-blue-500">Username</label>
-                        <input type="text" id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)} className="w-full p-2 border border-blue-500 text-slate-900 mb-2 rounded-lg" />
-
-                        <label htmlFor="name" className="text-sm font-semibold text-blue-500">Name</label>
-                        <input type="text" id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)} className="w-full p-2 border border-blue-500 text-slate-900 mb-2 rounded-lg" />
-
-                        <label htmlFor="password" className="text-sm font-semibold text-blue-500">Password</label>
-                        <input type="password" id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border border-blue-500 text-slate-900 mb-2 rounded-lg" />
-
-                        <label htmlFor="phone" className="text-sm font-semibold text-blue-500">Phone</label>
-                        <input type="text" id="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)} className="w-full p-2 border border-blue-500 text-slate-900 mb-2 rounded-lg" />
-                    </div>
-
-                    <button type="submit" className="w-full bg-blue-500 text-white p-2 font-semibold hover:bg-blue-600 rounded-lg">
-                        Sign Up
-                    </button>
-
-                    <div className="text-center text-semibold pt-5">Already have account? <Link className="font-semibold text-blue-500" href="/sign-in">sign in</Link></div>
-                </form>
-            </div>
+        <div className="w-full h-dvh flex justify-center items-center bg-blue-100">
+            <Card className="w-full max-w-sm">
+                <CardHeader>
+                    <CardTitle>Sign up for an account</CardTitle>
+                    <CardDescription>
+                        Enter your details below to create an account
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSignUp}>
+                        <div className="flex flex-col gap-6">
+                            <div className="grid gap-2">
+                                <Label htmlFor="username">Username</Label>
+                                <Input
+                                    id="username"
+                                    type="text"
+                                    placeholder="Enter your username"
+                                    required
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password">Password</Label>
+                                </div>
+                                <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="name">Name</Label>
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    placeholder="Enter your name"
+                                    required
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="phone">Phone</Label>
+                                <Input
+                                    id="phone"
+                                    type="text"
+                                    placeholder="Enter your phone number"
+                                    required
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />
+                            </div>
+                            <Button type="submit" className="w-full" disabled={isPending}>
+                                {isPending ? "Loading..." : "Sign Up"}
+                            </Button>
+                        </div>
+                    </form>
+                </CardContent>
+                <CardFooter className="flex-col gap-2">
+                    <p className="text-sm text-muted-foreground text-center">
+                        Already have an account?{" "}
+                        <Link href="/sign-in" className="font-medium text-primary underline-offset-4 hover:underline">
+                            Sign In
+                        </Link>
+                    </p>
+                </CardFooter>
+            </Card>
         </div>
     )
 }
