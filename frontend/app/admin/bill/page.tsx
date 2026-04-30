@@ -1,4 +1,5 @@
 import { getCookies } from "@/helper/cookies"
+import VerifyBill from "./verify"
 
 export interface BillResponse {
     success: boolean
@@ -24,8 +25,9 @@ export interface BillType {
     service: Service
     admin: Admin
     customer: Customer
-    payments: any
+    payments: Payments
     amount: number
+    verified_payment: boolean
 }
 
 export interface Service {
@@ -60,6 +62,18 @@ export interface Customer {
     owner_token: string
     createdAt: string
     updatedAt: string
+}
+
+export interface Payments {
+  id: number
+  bill_id: number
+  payment_date: string
+  verified: boolean
+  total_amount: number
+  payment_proof: string
+  owner_token: string
+  createdAt: string
+  updatedAt: string
 }
 
 type SearchParams = {
@@ -139,9 +153,9 @@ export default async function BillPage(props: PageProps) {
     const { success, message, data, count } = await getBills({ search })
 
     const totalAmount = data.reduce((sum, bill) => sum + bill.amount, 0)
-    const paidBills = data.filter((bill) => bill.paid)
+    const verifiedBills = data.filter((bill) => bill.paid && bill.verified_payment)
     const unpaidBills = data.filter((bill) => !bill.paid)
-    const paidAmount = paidBills.reduce((sum, bill) => sum + bill.amount, 0)
+    const paidAmount = verifiedBills.reduce((sum, bill) => sum + bill.amount, 0)
     const unpaidAmount = unpaidBills.reduce((sum, bill) => sum + bill.amount, 0)
 
     if (!success) {
@@ -175,8 +189,8 @@ export default async function BillPage(props: PageProps) {
                     <p className="text-3xl font-bold mt-1">{count}</p>
                 </div>
                 <div className="rounded-xl p-5 bg-emerald-50 border border-emerald-200 shadow-sm">
-                    <p className="text-emerald-700 text-sm">Paid</p>
-                    <p className="text-2xl font-bold text-emerald-800 mt-1">{paidBills.length}</p>
+                    <p className="text-emerald-700 text-sm">Paid (Verified)</p>
+                    <p className="text-2xl font-bold text-emerald-800 mt-1">{verifiedBills.length}</p>
                     <p className="text-xs text-emerald-700 mt-1">{formatRupiah(paidAmount)}</p>
                 </div>
                 <div className="rounded-xl p-5 bg-rose-50 border border-rose-200 shadow-sm">
@@ -224,6 +238,7 @@ export default async function BillPage(props: PageProps) {
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Total</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Admin</th>
+                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Verify</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-200">
@@ -248,11 +263,14 @@ export default async function BillPage(props: PageProps) {
                                         </td>
                                         <td className="px-4 py-4 align-top text-sm font-bold text-slate-900">{formatRupiah(bill.amount)}</td>
                                         <td className="px-4 py-4 align-top">
-                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${bill.paid ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
-                                                {bill.paid ? "Paid" : "Unpaid"}
+                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${bill.paid ? (bill.verified_payment ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700") : "bg-rose-100 text-rose-700"}`}>
+                                                {bill.paid ? (bill.verified_payment ? "Paid" : "Need verification") : "Unpaid"}
                                             </span>
                                         </td>
                                         <td className="px-4 py-4 align-top text-sm text-slate-700">{bill.admin.name}</td>
+                                        <td className="px-4 py-4 align-top text-sm text-slate-700">
+                                            {bill.paid && !bill.verified_payment && <VerifyBill selectedData={bill} />}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
