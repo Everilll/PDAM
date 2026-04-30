@@ -1,5 +1,6 @@
 import { getCookies } from "@/helper/cookies"
 import Pay from "./pay"
+import { ToastContainer } from "react-toastify"
 
 export interface BillResponse {
   success: boolean
@@ -166,6 +167,7 @@ export default async function BillPage(props: PageProps) {
 
     return (
         <div className="w-full p-5 max-w-7xl mx-auto">
+            <ToastContainer containerId={'toastPay'}/>
             <div className="mb-6">
                 <h1 className="text-3xl font-bold text-sky-700">Bill Management</h1>
                 <p className="text-slate-600 mt-1">Track invoices, usage, and payment status.</p>
@@ -225,7 +227,7 @@ export default async function BillPage(props: PageProps) {
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Total</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
                                     <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Admin</th>
-                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Admin</th>
+                                    <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider">Pay</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-200">
@@ -252,7 +254,7 @@ export default async function BillPage(props: PageProps) {
                                         </td>
                                         <td className="px-4 py-4 align-top text-sm text-slate-700">{bill.admin.name}</td>
                                         <td>
-                                            <Pay/>
+                                            <Pay bill_id={bill.id} />
                                         </td>
                                     </tr>
                                 ))}
